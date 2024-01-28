@@ -6,7 +6,7 @@ export const postRate = async (req, res) => {
   try {
       const { rows } = await pool.query(`
           INSERT INTO cat_ratings (CatImageID, TotalScore, RatingCount, Date) 
-          VALUES ($1, $2, 1) 
+          VALUES ($1, $2, 1, NOW()) 
           ON CONFLICT (CatImageID) 
           DO UPDATE SET TotalScore = cat_ratings.TotalScore + $2, RatingCount = cat_ratings.RatingCount + 1, Date = NOW()
       `, [image_id, value]);
