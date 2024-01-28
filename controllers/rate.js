@@ -20,13 +20,13 @@ export const postRate = async (req, res) => {
 export const getRates = async (req, res) => {
   try {
       const { rows } = await pool.query(`
-          SELECT CatImageID, TotalScore, RatingCount, TotalScore / RatingCount AS AverageRating 
+          SELECT CatImageID, TotalScore, RatingCount
           FROM cat_ratings
-          ORDER BY AverageRating DESC
+          ORDER BY TotalScore DESC
           LIMIT 10
       `);
       res.status(200).json(rows);
-      console.log("get request", rows)
+      console.log("get request, scoreboard")
   } catch (error) {
       console.error(error);
       res.status(400).json({ message: error.message });
